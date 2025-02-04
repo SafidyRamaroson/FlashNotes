@@ -3,7 +3,7 @@ import BaseRepository from "./BaseRepository";
 import { prisma } from "@/lib/prisma";
 
 
-class CategoryRepository extends BaseRepository<Partial<Category>, Prisma.CategoryCreateInput, Prisma.CategoryUpdateInput, Prisma.CategoryWhereInput, Prisma.CategorySelect> {
+class CategoryRepository extends BaseRepository<Partial<Category>, Prisma.CategoryCreateInput, Prisma.CategoryUpdateInput, Prisma.CategoryWhereInput, Prisma.CategorySelect , typeof prisma.category> {
     constructor() {
         super(prisma.category);
     }
