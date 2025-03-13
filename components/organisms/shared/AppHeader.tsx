@@ -6,7 +6,7 @@ import { PanelLeft } from "lucide-react";
 
 function AppHeader(){
     return(
-        <div className="flex flex-row items-center mt-2 ml-2 gap-2">
+        <div className="flex flex-row items-center py-2 pl-2 gap-2">
             <PanelLeft className="text-gray-200"/>
             <span> | </span>
             <HeaderBreadcrumb />
