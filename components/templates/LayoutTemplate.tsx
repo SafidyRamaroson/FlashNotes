@@ -1,12 +1,13 @@
 "use client"
 import { LayoutProps } from "@/types";
 import { AppSidebar } from "@/components/organisms/shared/AppSidebar";
-import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
-import { NotepadText, Tags, Star } from "lucide-react";
+import { SidebarProvider, SidebarTrigger, useSidebar } from "@/components/ui/sidebar";
+import { NotepadText, Tags, Star, PanelsTopLeft, PanelLeft } from "lucide-react";
 import { useEffect, useState } from "react";
 import { string } from "zod";
 import { usePathname } from "next/navigation";
-
+import * as React from "react";
+import { AppHeader } from "@/components/organisms/shared/AppHeader";
 
 
 function LayoutTemplate({ children }: LayoutProps) {
@@ -39,7 +40,7 @@ function LayoutTemplate({ children }: LayoutProps) {
         <SidebarProvider>
             <AppSidebar menuItems={menuItems} activeLink={activeLink as string} onMouseEnter={() => alert("On Mouse enter")}/>
             <main>
-                <SidebarTrigger />
+                <AppHeader />
                 {children}
             </main>
         </SidebarProvider>
