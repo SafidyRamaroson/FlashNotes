@@ -20,8 +20,8 @@ function InteractiveSidebarMenu({
   return (
     <SidebarMenuShadcn>
       {items.map((item) => (
-        <Link href={item.url} className={cn("flex items-center gap-4 font-medium transition-all duration-400 ease-out", activeLink === item.url && "font-semibold")}>
-          <SidebarMenuItem key={item.title} className="flex flex-row w-full">
+        <Link href={item.url} key={item.title}  className={cn("flex items-center gap-4 font-medium transition-all duration-400 ease-out", activeLink === item.url && "font-semibold")}>
+          <SidebarMenuItem className="flex flex-row w-full">
             <SidebarMenuButton
               className={cn(
                 "flex flex-row h-[38px] transition-all duration-400 ease-out",
