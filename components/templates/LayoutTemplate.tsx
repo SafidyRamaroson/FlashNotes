@@ -41,7 +41,7 @@ function LayoutTemplate({ children }: LayoutProps) {
             <AppSidebar menuItems={menuItems} activeLink={activeLink as string} onMouseEnter={() => alert("On Mouse enter")} />
             <main className="flex-1">
                 <AppHeader />
-                <div className="w-full min-h-[93.4%] px-4 pt-2">
+                <div className="w-full min-h-[93.4%] px-4 pt-4">
                     {children}
                 </div>
             </main>
