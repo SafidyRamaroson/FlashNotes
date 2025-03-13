@@ -27,21 +27,23 @@ function LayoutTemplate({ children }: LayoutProps) {
             url: "/review",
             icon: Star
         }
-      ]
-    
+    ]
+
     const [activeLink, setActiveLink] = useState<string | null>(null);
 
     const path = usePathname();
 
     useEffect(() => {
         setActiveLink(path);
-    },[path])
+    }, [path])
     return (
         <SidebarProvider>
-            <AppSidebar menuItems={menuItems} activeLink={activeLink as string} onMouseEnter={() => alert("On Mouse enter")}/>
-            <main>
+            <AppSidebar menuItems={menuItems} activeLink={activeLink as string} onMouseEnter={() => alert("On Mouse enter")} />
+            <main className="flex-1">
                 <AppHeader />
-                {children}
+                <div className="w-full min-h-[93.4%] px-4 pt-2">
+                    {children}
+                </div>
             </main>
         </SidebarProvider>
     )
