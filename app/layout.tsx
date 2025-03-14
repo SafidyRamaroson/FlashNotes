@@ -20,8 +20,7 @@ const roboto = Roboto({
 
 
 export const metadata: Metadata = {
-  title: "E-commerce",
-  description: "Découvrez mes projets, mon expertise et mon parcours à travers ce portfolio en ligne."
+  title: "FlashNotes",
 };
 
 export default function RootLayout({
