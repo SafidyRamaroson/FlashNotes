@@ -13,7 +13,7 @@ function HeaderBreadcrumb() {
             <BreadcrumbList>
                 {
                     breadcrumbsList?.map((breadcrumbItem, idx) => (
-                        <CustomBreadcrumbItem breadcrumbItem={breadcrumbItem} isLast={idx == breadcrumbsList.length - 1} />
+                        <CustomBreadcrumbItem breadcrumbItem={breadcrumbItem} isLast={idx == breadcrumbsList.length - 1} key={idx} />
                     ))
                 }
             </BreadcrumbList>
