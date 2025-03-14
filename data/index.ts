@@ -1,68 +1,21 @@
-import { BarChart, Bot, Store, List, ClipboardList, Settings } from "lucide-react";
+import { NotepadText, Star, Tags } from "lucide-react";
 
+export const menuItems = [
+  {
+      title: "Mes notes",
+      url: "/notes/all",
+      icon: NotepadText,
+  },
+  {
+      title: "Tags",
+      url: "/notes/tags",
+      icon: Tags
+  },
+  {
+      title: "Revoir",
+      url: "/notes/review",
+      icon: Star
+  }
+]
 
-export const adminNavMainData = [
-    {
-      title: "Tableau de board",
-      url: "/admin/tb",
-      icon: BarChart,
-      isActive: true,
-      items: [],
-    },
-    {
-      title: "Clients",
-      url: "/admin/customers",
-      icon: Bot,
-      isActive: true,
-      items: [],
-    },
-    {
-      title: "Produits",
-      url: "#",
-      icon: Store,
-      isActive: true,
-      items: [
-        {
-          title: "Liste des produits",
-          url: "/admin/products",
-        },
-        {
-          title: "Out stock",
-          url: "/admin/products/outOfStock"
-        },
-        {
-          title: "Ajouter un produit",
-          url: "/admin/products/new"
-        }
-      ],
-    },
-    {
-      title: "Collections",
-      url: "/admin/products/categories",
-      icon: List,
-      isActive: true,
-      items:[]
-    },
-    {
-      title: "Commandes",
-      url: "#",
-      icon: ClipboardList,
-      isActive: true,
-      items: [
-        {
-          title: "Tout les commandes",
-          url: "/admin/orders",
-        },
-        {
-          title: "Commandes à livrer",
-          url: "/admin/delivery",
-        },
-      ],
-    },
-    {
-      title: "Paramètres",
-      url: "/settings",
-      icon: Settings,
-      items: [],
-    }
-  ];
+export const mainLinks = menuItems.map(({url}) => url);
