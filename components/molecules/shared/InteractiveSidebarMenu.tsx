@@ -1,6 +1,7 @@
 "use client"
 
 import { SidebarMenuButton, SidebarMenuItem, SidebarMenu as SidebarMenuShadcn } from "@/components/ui/sidebar";
+import { useActiveLink } from "@/store/useActiveLink";
 import { MenuItem } from "@/types/menuItem";
 import { cn } from "@/utils/tailwind";
 import Link from "next/link";
@@ -8,15 +9,14 @@ import Link from "next/link";
 
 type SidebarMenuProps = {
   items: MenuItem[];
-  activeLink: string | null;
   onMouseEnter?: () => void;
 }
 
 function InteractiveSidebarMenu({
   items,
   onMouseEnter,
-  activeLink
 }: SidebarMenuProps) {
+  const { activeLink } = useActiveLink();
   return (
     <SidebarMenuShadcn>
       {items.map((item) => (

@@ -3,6 +3,7 @@
 import { Logo } from "@/components/atoms";
 import { InteractiveSidebarMenu } from "@/components/molecules/shared/InteractiveSidebarMenu";
 import { Sidebar, SidebarContent, SidebarMenu, SidebarFooter, SidebarGroup, SidebarGroupContent, SidebarHeader, SidebarMenuButton, SidebarMenuItem, useSidebar } from "@/components/ui/sidebar";
+import { useActiveLink } from "@/store/useActiveLink";
 import { MenuItem } from "@/types/menuItem";
 import { cn } from "@/utils/tailwind";
 import { Avatar, AvatarImage, AvatarFallback } from "@radix-ui/react-avatar";
@@ -10,17 +11,14 @@ import { NotepadText, Tags, Star, ArrowDown, ArrowUp } from "lucide-react";
 
 type AppSidebarProps = {
   menuItems: MenuItem[],
-  activeLink: string | null;
   onMouseEnter: () => void;
 }
 function AppSidebar({
   menuItems,
-  activeLink,
   onMouseEnter
 }: AppSidebarProps) {
 
   const { state } = useSidebar();
-
   return (
     <Sidebar collapsible="icon">
       <SidebarHeader>
@@ -32,7 +30,7 @@ function AppSidebar({
       <SidebarContent>
         <SidebarGroup >
           <SidebarGroupContent>
-            <InteractiveSidebarMenu items={menuItems} activeLink={activeLink} onMouseEnter={onMouseEnter} />
+            <InteractiveSidebarMenu items={menuItems} onMouseEnter={onMouseEnter} />
           </SidebarGroupContent>
         </SidebarGroup>
       </SidebarContent>
