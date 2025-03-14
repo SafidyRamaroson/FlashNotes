@@ -18,7 +18,7 @@ function CardNote() {
             </div>
             <p className="text-base text-slate-500 line-clamp-4 my-2">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Laudantium nostrum magnam, incidunt officia repellendus blanditiis aliquid vel quaerat. Voluptatibus sequi magni aut sunt mollitia unde odit libero ipsa, vel molestiae.</p>
             <div className="flex flex-row justify-between items-center">
-                <Link href="/23" className="flex flex-row items-center gap-3 text-primary hover:translate-x-2 transition-transform ease-linear duration-300">
+                <Link href="/notes/biologique/1" className="flex flex-row items-center gap-3 text-primary hover:translate-x-2 transition-transform ease-linear duration-300">
                     Voir les cartes
                     <ArrowRight />
                 </Link>
