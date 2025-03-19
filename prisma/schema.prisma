@@ -14,14 +14,78 @@ datasource db {
 }
 
 model User {
-  id              Int       @id @default(autoincrement())
-  email           String    @unique
-  name            String?
-  hashPassword    String?
-  isEmailVerified Boolean   @default(false)
-  otp             Int?
-  expireedOtpAt   DateTime?
-  createdAt       DateTime  @default(now())
-  updatedAt       DateTime  @updatedAt
+  id               Int              @id @default(autoincrement())
+  email            String           @unique
+  name             String?
+  hashPassword     String?
+  isEmailVerified  Boolean          @default(false)
+  otp              Int?
+  expiredOtpAt     DateTime?
+  createdAt        DateTime         @default(now())
+  updatedAt        DateTime         @updatedAt
+  sharedNoteGroups ShareNoteGroup[]
+  notesGroup       NoteGroup[]
+  reviews          Review[]
 }
 
+model Note {
+  id             Int              @id @default(autoincrement())
+  term           String           @unique
+  definition     String
+  image          String
+  createdAt      DateTime         @default(now())
+  updatedAt      DateTime         @updatedAt
+  noteGroupId    Int
+  noteGroup      NoteGroup        @relation(fields: [noteGroupId], references: [id])
+  shareNoteGroup ShareNoteGroup[]
+  noteTags       NoteTag[]
+  reviews        Review[]
+}
+
+model NoteGroup {
+  id        Int      @id @default(autoincrement())
+  name      String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  userId    Int
+  user      User     @relation(fields: [userId], references: [id])
+  notes     Note[]
+}
+
+model ShareNoteGroup {
+  id               Int      @id @default(autoincrement())
+  noteId           Int
+  sharedWithUserId Int
+  note             Note     @relation(fields: [noteId], references: [id])
+  sharedWithUser   User     @relation(fields: [sharedWithUserId], references: [id])
+  createdAt        DateTime @default(now())
+}
+
+model Tag {
+  id        Int       @id @default(autoincrement())
+  name      String
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  notes     NoteTag[]
+}
+
+model NoteTag {
+  id        Int      @id @default(autoincrement())
+  noteId    Int
+  tagId     Int
+  note      Note     @relation(fields: [noteId], references: [id])
+  tag       Tag      @relation(fields: [tagId], references: [id])
+  createdAt DateTime @default(now())
+}
+
+model Review {
+  id         Int      @id @default(autoincrement())
+  noteId     Int
+  userId     Int
+  reviewDate DateTime
+  success    Boolean  @default(false)
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  note       Note     @relation(fields: [noteId], references: [id])
+  user       User     @relation(fields: [userId], references: [id])
+}
