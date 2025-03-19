@@ -1,6 +1,8 @@
+import { ConfirmDeleteTag } from "@/components/organisms/dialogs/ConfirmDeleteTag.dialog";
 import { Button } from "@/components/ui/button"
-import { ArrowRight, Trash2 } from "lucide-react"
-import Link from "next/link"
+import { useDialogs } from "@/store/useDialogs";
+import { ArrowRight, Trash2 } from "lucide-react";
+import Link from "next/link";
 
 export type TagProps = {
     name?: string;
@@ -8,6 +10,7 @@ export type TagProps = {
 }
 
 function CardTag(){
+    const { openDialog }= useDialogs();
     return(
         <div className="border p-2 rounded-md">
             <h2>Tag name</h2>
@@ -17,13 +20,14 @@ function CardTag(){
                     Voir les notes
                     <ArrowRight />
                 </Link>
+                <ConfirmDeleteTag />
                 <Button
                     icon={<Trash2 className="text-white"/>}
                     iconPosition="center"
                     variant="destructive"
                     size="icon"
                     className="rounded-sm"
-                    onClick={() => alert("Deleting ...")}
+                    onClick={() => openDialog("confirmDeleteTag", { tagId: "12"})}
                 />
             </div>
         </div>

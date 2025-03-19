@@ -10,10 +10,10 @@ type DialogsProps = {
 
 export const useDialogs = create<DialogsProps>((set) => ({
   dialogs: {
-    addNote: { isOpen: false, data: {}},
     confirmDeleteNote : { isOpen: false , data: {}},
+    confirmDeleteTag: { isOpen: false, data: {}},
+    confirmDeleteOneFlashNotes: { isOpen: false, data: {}},
     addTag: { isOpen: false, data: {}},
-    confirmDeleteTag : { isOpen: false , data: {}},
   },
   openDialog: (dialogName, data = {}) =>
     set((state) => {

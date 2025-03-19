@@ -5,8 +5,11 @@ import Logo from "@/public/logo.webp";
 import { ArrowRight, DeleteIcon, Trash, Trash2 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { ConfirmDeleteOneFlashNotes } from "@/components/organisms/dialogs/ConfirmDeleteOneFlashNotes";
+import { useDialogs } from "@/store/useDialogs";
 
 function CardNote() {
+    const { openDialog } = useDialogs();
     return (
         <div className="rounded-[20px] p-4 border-[1px] bg-white">
             <div className="flex flex-col gap-3">
@@ -22,12 +25,14 @@ function CardNote() {
                     Voir les cartes
                     <ArrowRight />
                 </Link>
+                <ConfirmDeleteOneFlashNotes />
                 <Button
                     icon={<Trash2 className="text-white"/>}
                     iconPosition="center"
                     variant="destructive"
                     size="icon"
                     className="rounded-sm"
+                    onClick={() => openDialog("confirmDeleteOneFlashNotes")}
                 />
             </div>
         </div>

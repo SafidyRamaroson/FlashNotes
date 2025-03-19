@@ -14,7 +14,7 @@ export default function AllNotesTemplate() {
     <>
       <div className="flex flex-row items-start justify-between">
         <LayoutSectionHeader
-          title="Tous les flash notes"
+          title="Tous mes flash notes"
           subtitle="Vous avez 10 notes"
         />
        
@@ -42,6 +42,7 @@ export default function AllNotesTemplate() {
             label="Ajouter"
             icon={<Plus />}
             iconPosition="left"
+            onClick={() => { window.location.href ="/notes/note/new"}}
           />
         </div>
       </div>
