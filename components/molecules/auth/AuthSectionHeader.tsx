@@ -1,4 +1,4 @@
-import { Logo } from "@/components/atoms/shared/Logo";
+import { Logo } from "@/atoms/shared/Logo";
 import { Label } from "@/components/ui/label";
 
 type AuthSectionHeaderType = {
