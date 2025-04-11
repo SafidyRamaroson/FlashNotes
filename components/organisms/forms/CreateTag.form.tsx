@@ -2,27 +2,44 @@
 
 import FormField from "@/components/molecules/shared/FormField";
 import { Button } from "@/components/ui/button";
-import { CreateTagSchema, CreateTagType } from "@/schemas/tag/CreateTag.schema";
+import { TagCreateSchema, TagCreateType } from "@/core/entities/models/tag.model";
+import { toast } from "@/hooks/use-toast";
+import { useMutationApi } from "@/hooks/useMutation";
 import { useDialogs } from "@/store/useDialogs";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Tag } from "lucide-react";
-import { useForm } from "react-hook-form";
+import { revalidatePath } from "next/cache";
+import { SubmitHandler, useForm } from "react-hook-form";
+
 
 
 export function CreateTagForm() {
     const {
         register,
         handleSubmit,
-        formState: { errors },
-    } = useForm<CreateTagType>({
+    } = useForm<TagCreateType>({
         mode: "onSubmit",
-        resolver: zodResolver(CreateTagSchema),
+        resolver: zodResolver(TagCreateSchema),
     });
 
     const { closeDialog } = useDialogs();
-    
+    const { mutateAsync: createTag, isPending } = useMutationApi({
+        endpoint: "/api/notes/tags",
+        method: "POST",
+        queryKeyToInvalidate: 'tagsUser'
+    });
+
+    const onSubmit: SubmitHandler<TagCreateType> = async (data) => {
+        await createTag(data);
+        toast({
+            title: "Tag crée",
+            description: "Le tag crée avec succès.",
+        });
+        closeDialog("addTag");
+    }
+
     return (
-        <form>
+        <form onSubmit={handleSubmit(onSubmit)}>
             <FormField
                 htmlFor="name"
                 label="Nom"
@@ -39,7 +56,8 @@ export function CreateTagForm() {
                     label="Créer"
                     icon={<Tag />}
                     iconPosition="left"
-                    onSubmit={() => alert("Création de nouvelle tag")}
+                    disabled={isPending}
+                    onSubmit={() => handleSubmit(onSubmit)}
                 />
             </div>
         </form>
