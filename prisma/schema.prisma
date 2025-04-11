@@ -14,9 +14,9 @@ datasource db {
 }
 
 model User {
-  id               Int              @id @default(autoincrement())
+  id               String           @id @default(uuid())
   email            String           @unique
-  name             String?
+  name             String
   hashPassword     String?
   isEmailVerified  Boolean          @default(false)
   otp              Int?
@@ -25,67 +25,84 @@ model User {
   updatedAt        DateTime         @updatedAt
   sharedNoteGroups ShareNoteGroup[]
   notesGroup       NoteGroup[]
-  reviews          Review[]
+  review           Review[]
+  tags             Tag[]
 }
 
 model Note {
-  id             Int              @id @default(autoincrement())
-  term           String           @unique
-  definition     String
-  image          String
-  createdAt      DateTime         @default(now())
-  updatedAt      DateTime         @updatedAt
-  noteGroupId    Int
-  noteGroup      NoteGroup        @relation(fields: [noteGroupId], references: [id])
-  shareNoteGroup ShareNoteGroup[]
-  noteTags       NoteTag[]
-  reviews        Review[]
+  id           String     @id @default(uuid())
+  term         String     @unique
+  definition   String
+  image        String
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime   @updatedAt
+  noteGroupId  String
+  noteGroup    NoteGroup  @relation(fields: [noteGroupId], references: [id], onDelete: Cascade)
+  noteTags     NoteTag[]
+  noteReviewId String
+  noteReview   NoteReview @relation(fields: [noteReviewId], references: [id], onDelete: Cascade)
 }
 
 model NoteGroup {
-  id        Int      @id @default(autoincrement())
-  name      String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  userId    Int
-  user      User     @relation(fields: [userId], references: [id])
-  notes     Note[]
+  id             String           @id @default(uuid())
+  name           String
+  favorite       Boolean          @default(false)
+  createdAt      DateTime         @default(now())
+  updatedAt      DateTime         @updatedAt
+  userId         String
+  user           User             @relation(fields: [userId], references: [id])
+  notes          Note[]
+  shareNoteGroup ShareNoteGroup[]
 }
 
 model ShareNoteGroup {
-  id               Int      @id @default(autoincrement())
-  noteId           Int
-  sharedWithUserId Int
-  note             Note     @relation(fields: [noteId], references: [id])
-  sharedWithUser   User     @relation(fields: [sharedWithUserId], references: [id])
-  createdAt        DateTime @default(now())
+  id               String    @id @default(uuid())
+  groupNoteId      String
+  sharedWithUserId String
+  noteGroup        NoteGroup @relation(fields: [groupNoteId], references: [id])
+  sharedWithUser   User      @relation(fields: [sharedWithUserId], references: [id])
+  createdAt        DateTime  @default(now())
 }
 
 model Tag {
-  id        Int       @id @default(autoincrement())
+  id        String    @id @default(uuid())
   name      String
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
+  userId    String
+  user      User      @relation(fields: [userId], references: [id])
   notes     NoteTag[]
 }
 
 model NoteTag {
   id        Int      @id @default(autoincrement())
-  noteId    Int
-  tagId     Int
+  noteId    String
+  tagId     String
   note      Note     @relation(fields: [noteId], references: [id])
-  tag       Tag      @relation(fields: [tagId], references: [id])
+  tag       Tag      @relation(fields: [tagId], references: [id], onDelete: Cascade)
   createdAt DateTime @default(now())
 }
 
+model NoteReview {
+  id        String       @id @default(uuid())
+  status    ReviewStatus @default(NOT_DONE)
+  createdAt DateTime     @default(now())
+  updatedAt DateTime     @updatedAt
+  notes     Note[]
+  reviews   Review[]
+}
+
 model Review {
-  id         Int      @id @default(autoincrement())
-  noteId     Int
-  userId     Int
-  reviewDate DateTime
-  success    Boolean  @default(false)
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime @updatedAt
-  note       Note     @relation(fields: [noteId], references: [id])
-  user       User     @relation(fields: [userId], references: [id])
+  id           String     @id @default(uuid())
+  noteReviewId String
+  userId       String
+  createdAt     DateTime   @default(now())
+  updatedAt    DateTime   @updatedAt
+  noteReview   NoteReview @relation(fields: [noteReviewId], references: [id])
+  user         User       @relation(fields: [userId], references: [id])
+}
+
+enum ReviewStatus {
+  NOT_DONE
+  COMPLETED
 }
