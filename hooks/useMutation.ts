@@ -1,4 +1,4 @@
-import { ApiResponse } from "@/types/apiResponse";
+import { ApiResponse, ApiSuccessResponse, ApiFailureResponse } from "@/types/apiResponse";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 type HttpMethod = "POST" | "PUT" | "DELETE";
@@ -8,8 +8,8 @@ type MutationOptions<TData, TVariables = unknown> = {
   method: HttpMethod;
   queryKeyToInvalidate?: string;
   where?: Record<string, string | number>;
-  onSuccess?: (data: ApiResponse<TData>) => void;
-  onError?: (error: unknown) => void;
+  onSuccess?: (data: ApiSuccessResponse<TData>) => void;
+  onError?: (error: ApiFailureResponse) => void;
 };
 
 export const fetchMutation = async <TData, TVariables = unknown>(
@@ -17,7 +17,7 @@ export const fetchMutation = async <TData, TVariables = unknown>(
   method: HttpMethod,
   body?: TVariables,
   where?: Record<string, string | number>
-): Promise<ApiResponse<TData>> => {
+): Promise<ApiSuccessResponse<TData>> => {
   console.log("1")
   let url = endpoint
   if (where) {
@@ -29,14 +29,11 @@ export const fetchMutation = async <TData, TVariables = unknown>(
     body = undefined
   }
 
-  console.log("2");
-
   const response = await fetch(url, {
     method,
     headers: { "Content-Type": "application/json" },
     body: body ? JSON.stringify(body) : undefined,
   });
-  console.log("3")
   return response.json();
 };
 
