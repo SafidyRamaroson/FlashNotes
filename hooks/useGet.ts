@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import type { ApiResponse } from "@/types/apiResponse";
+import type { ApiSuccessResponse } from "@/types/apiResponse";
 
 type GetOptions<TData> = {
   endpoint: string;
@@ -8,7 +8,7 @@ type GetOptions<TData> = {
   enabled?: boolean; // Permet d'activer ou désactiver la requête
 };
 
-export const fetchResources = async <TData>({ endpoint, where }: GetOptions<TData>): Promise<ApiResponse<TData>> => {
+export const fetchResources = async <TData>({ endpoint, where }: GetOptions<TData>): Promise<ApiSuccessResponse<TData>> => {
   let url = endpoint;
   if (where) {
     const query = new URLSearchParams(where as Record<string, string>).toString();
