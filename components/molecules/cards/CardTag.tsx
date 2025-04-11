@@ -4,19 +4,24 @@ import { useDialogs } from "@/store/useDialogs";
 import { ArrowRight, Trash2 } from "lucide-react";
 import Link from "next/link";
 
-export type TagProps = {
-    name?: string;
-    noteNumbersOfRelatedTag?: number;
+export type CardTagProps = {
+    id: string;
+    name: string;
+    notesCountOfRelatedTag: number;
 }
 
-function CardTag(){
+function CardTag({
+    id,
+    name,
+    notesCountOfRelatedTag
+}:CardTagProps){
     const { openDialog }= useDialogs();
     return(
         <div className="border p-2 rounded-md">
-            <h2>Tag name</h2>
-            <p className="text-base">25 Notes</p>
+            <h2>{name}</h2>
+            <p className="text-base">{notesCountOfRelatedTag} Notes</p>
             <div className="flex flex-row justify-between items-center">
-                <Link href="/notes/tags/Maths/12" className="flex flex-row items-center gap-3 text-primary hover:translate-x-2 transition-transform ease-linear duration-300">
+                <Link href={`/notes/tags/${name}/${id}`} className="flex flex-row items-center gap-3 text-primary hover:translate-x-2 transition-transform ease-linear duration-300">
                     Voir les notes
                     <ArrowRight />
                 </Link>
@@ -27,7 +32,7 @@ function CardTag(){
                     variant="destructive"
                     size="icon"
                     className="rounded-sm"
-                    onClick={() => openDialog("confirmDeleteTag", { tagId: "12"})}
+                    onClick={() => openDialog("confirmDeleteTag", { tagId: id })}
                 />
             </div>
         </div>
